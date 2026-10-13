@@ -13,6 +13,8 @@ services:
       UV_CACHE_DIR: /tmp/python-home/.cache/uv
       HOME: /tmp/python-home
       PYTHONPATH: /var/www
+    ports:
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./application:/var/www
       - python_dependencies:/opt/venv
