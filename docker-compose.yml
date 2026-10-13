@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker-configuration/Dockerfile
+    image: "${APP_IMAGE:-academy-python:local}"
+    working_dir: /var/www
+    init: true
+    environment:
+      LOCAL_UID: "${LOCAL_UID:-1000}"
+      LOCAL_GID: "${LOCAL_GID:-1000}"
+      UV_PROJECT_ENVIRONMENT: /opt/venv
+      UV_CACHE_DIR: /tmp/python-home/.cache/uv
+      HOME: /tmp/python-home
+      PYTHONPATH: /var/www
+    volumes:
+      - ./application:/var/www
+      - python_dependencies:/opt/venv
+    command: ["sleep", "infinity"]
+
+  database:
+    image: postgres:17
+    profiles: ["database"]
+    environment:
+      POSTGRES_DB: "${DB_DATABASE:-academy_python}"
+      POSTGRES_USER: "${DB_USER:-academy}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-academy_local_only}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Deliberately no host port: app can reach database:5432 within Compose.
+
+volumes:
+  python_dependencies:
+  postgres_data:

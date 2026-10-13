@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /var/www
+if [[ ! -f pyproject.toml ]]; then
+    echo "Missing /var/www/pyproject.toml; check application mount" >&2
+    exit 1
+fi
+if [[ -f uv.lock ]]; then
+    uv sync --frozen
+else
+    uv sync
+fi
+if (( $# > 0 )); then
+    exec "$@"
+fi

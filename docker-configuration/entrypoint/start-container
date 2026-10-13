@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /var/www
+local_uid=${LOCAL_UID:-1000}
+local_gid=${LOCAL_GID:-1000}
+if [[ ! "$local_uid" =~ ^[0-9]+$ || ! "$local_gid" =~ ^[0-9]+$ ]]; then
+    echo "LOCAL_UID and LOCAL_GID must be numeric" >&2
+    exit 1
+fi
+mkdir -p /opt/venv "$HOME"
+# Only the dedicated dependency volume and temporary home are writable by the host user.
+# Never recursively chown the bind-mounted application source.
+if [[ $(stat -c '%u:%g' /opt/venv) != "$local_uid:$local_gid" ]]; then
+    chown -R "$local_uid:$local_gid" /opt/venv
+fi
+chown -R "$local_uid:$local_gid" "$HOME"
+exec gosu "$local_uid:$local_gid" /usr/bin/start-container-local "$@"

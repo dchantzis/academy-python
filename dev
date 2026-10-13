@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+if [[ ! -f .env ]]; then
+    echo "Missing root .env. Run: cp .env.example .env" >&2
+    exit 1
+fi
+export LOCAL_UID="$(id -u)" LOCAL_GID="$(id -g)"
+# Compose reads defaults from .env, including COMPOSE_PROJECT_NAME.
+COMPOSE=(docker compose --project-directory "$PWD" --env-file "$PWD/.env" -f "$PWD/docker-compose.yml")
+APP_USER="$LOCAL_UID:$LOCAL_GID"
+if (( $# == 0 )); then exec "${COMPOSE[@]}" ps; fi
+command=$1; shift
+app_exec() { "${COMPOSE[@]}" exec --user "$APP_USER" app "$@"; }
+case "$command" in
+    help|-h|--help)
+        cat <<'HELP'
+Usage: ./dev <command> [arguments]
+  build                 Build the Python image
+  up | start            Start Python container (no web server)
+  down | stop           Remove containers, preserve volumes
+  ssh | app | bash      Open a shell as your host UID/GID
+  logs                  Follow app logs
+  bootstrap             Synchronize dependencies with uv
+  python [args]         Execute Python in app container
+  uv [args]             Execute uv in app container
+  lesson <number>       Run the lesson's example (if exactly one) or list examples
+  test [args]           Run pytest
+  lint [args]           Run Ruff lint
+  format [args]         Format code with Ruff
+  check                 Run tests + lint, print OK on success
+  db-up                 Start optional PostgreSQL service
+  db-down               Stop PostgreSQL without deleting its data
+  db-shell [args]       Open psql (starts database if needed)
+  run [args]            Disposable app container
+  config                Print resolved Compose config
+  config-check          Validate Compose config
+  images | containers   Display project images / containers
+  purge                 DELETE all project volumes, including database
+HELP
+        ;;
+    build) exec "${COMPOSE[@]}" build "$@" ;;
+    up|start) exec "${COMPOSE[@]}" up -d app "$@" ;;
+    down|stop) exec "${COMPOSE[@]}" down "$@" ;;
+    ssh|app|bash) exec "${COMPOSE[@]}" exec --user "$APP_USER" app bash "$@" ;;
+    logs) exec "${COMPOSE[@]}" logs -f app "$@" ;;
+    bootstrap) exec "${COMPOSE[@]}" exec --user "$APP_USER" app /usr/bin/start-container-local "$@" ;;
+    python|uv) exec "${COMPOSE[@]}" exec --user "$APP_USER" app "$command" "$@" ;;
+    lesson)
+        if (( $# == 0 )); then echo "Usage: ./dev lesson <number> [example.py]" >&2; exit 2; fi
+        lesson=$1; shift
+        if [[ ! "$lesson" =~ ^[0-9]{1,2}$ ]] || (( 10#$lesson < 1 || 10#$lesson > 99 )); then
+            echo "Lesson must be a number from 1 to 99" >&2; exit 2
+        fi
+        printf -v padded '%02d' "$((10#$lesson))"
+        shopt -s nullglob
+        folders=(application/lessons/"$padded"-*)
+        if (( ${#folders[@]} != 1 )); then echo "Expected one directory for lesson $padded" >&2; exit 1; fi
+        if (( $# > 0 )); then
+            file="${folders[0]}/examples/$1"; shift
+            [[ -f "$file" ]] || { echo "Example not found: $file" >&2; exit 1; }
+        else
+            examples=("${folders[0]}"/examples/*.py)
+            if (( ${#examples[@]} != 1 )); then
+                printf 'Examples for lesson %s:\n' "$padded"
+                printf '  %s\n' "${examples[@]}"
+                echo "Run: ./dev lesson $lesson <filename.py>"
+                exit 0
+            fi
+            file=${examples[0]}
+        fi
+        exec "${COMPOSE[@]}" exec --user "$APP_USER" app python "${file#application/}" "$@"
+        ;;
+    test|t) exec "${COMPOSE[@]}" exec --user "$APP_USER" app pytest "$@" ;;
+    lint) exec "${COMPOSE[@]}" exec --user "$APP_USER" app ruff check "$@" . ;;
+    format) exec "${COMPOSE[@]}" exec --user "$APP_USER" app ruff format "$@" . ;;
+    check)
+        app_exec pytest
+        app_exec ruff check .
+        echo OK
+        ;;
+    db-up) exec "${COMPOSE[@]}" --profile database up -d database "$@" ;;
+    db-down) exec "${COMPOSE[@]}" --profile database stop database "$@" ;;
+    db-shell)
+        "${COMPOSE[@]}" --profile database up -d database
+        exec "${COMPOSE[@]}" --profile database exec database sh -c 'exec psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" "$@"' sh "$@"
+        ;;
+    run) exec "${COMPOSE[@]}" run --rm app "$@" ;;
+    config) exec "${COMPOSE[@]}" config "$@" ;;
+    config-check) "${COMPOSE[@]}" config --quiet "$@"; echo OK ;;
+    images) exec "${COMPOSE[@]}" images "$@" ;;
+    containers) exec "${COMPOSE[@]}" ps -a "$@" ;;
+    purge) exec "${COMPOSE[@]}" --profile database down --volumes "$@" ;;
+    *) exec "${COMPOSE[@]}" "$command" "$@" ;;
+esac
