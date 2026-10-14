@@ -24,12 +24,12 @@
     &quot;assignee&quot;: &quot;dchantzis&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dchantzis/academy-python.git&quot;,
-    &quot;accountId&quot;: &quot;008a681d-02ce-4d08-af9d-6bef23300cab&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:dchantzis/academy-python.git",
+    "accountId": "008a681d-02ce-4d08-af9d-6bef23300cab"
   }
-}</component>
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -109,6 +109,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
@@ -123,14 +124,14 @@
     "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.javascript.runtime",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/application/lessons/14_fastapi_routing_dependencies" />
       <recent name="$PROJECT_DIR$/application/lessons" />
+      <recent name="$PROJECT_DIR$/application/lessons/14_fastapi_routing_dependencies" />
       <recent name="$PROJECT_DIR$/application/lessons/13_pydantic_api_models" />
     </key>
   </component>
@@ -150,6 +151,7 @@
       <option name="presentableId" value="Default" />
       <updated>1791827025893</updated>
       <workItem from="1791827026898" duration="10625000" />
+      <workItem from="1791986420962" duration="4550000" />
     </task>
     <servers />
   </component>
