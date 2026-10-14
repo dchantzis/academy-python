@@ -18,27 +18,86 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "dchantzis"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dchantzis&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dchantzis/academy-python.git",
-    "accountId": "008a681d-02ce-4d08-af9d-6bef23300cab"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dchantzis/academy-python.git&quot;,
+    &quot;accountId&quot;: &quot;008a681d-02ce-4d08-af9d-6bef23300cab&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0000019883456437" />
+      <entry key="MS500" value="1.0723933003871653" />
+      <entry key="S2" value="1.5187099682828058" />
+      <entry key="S5" value="1.7690770249596652" />
+      <entry key="S10" value="1.8769703672072764" />
+      <entry key="S30" value="1.9571829916150807" />
+      <entry key="S60" value="1.9783572924116632" />
+      <entry key="M2" value="1.9891194530549194" />
+      <entry key="M5" value="1.9956334918392122" />
+      <entry key="M10" value="1.9978143574028246" />
+      <entry key="M15" value="1.9985423736374517" />
+      <entry key="M30" value="1.9992709210406616" />
+      <entry key="H1" value="1.9996353940515819" />
+      <entry key="H2" value="1.9998176804055738" />
+      <entry key="H4" value="1.9999088360473536" />
+      <entry key="D1" value="1.9999848054307168" />
+      <entry key="W1" value="1.9999978293331098" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9592659489763709" />
+      <entry key="MS500" value="1.0629156918146754" />
+      <entry key="S2" value="1.5144799128411168" />
+      <entry key="S5" value="1.76696725718733" />
+      <entry key="S10" value="1.8758254252064446" />
+      <entry key="S30" value="1.9567790210979341" />
+      <entry key="S60" value="1.9781523603767137" />
+      <entry key="M2" value="1.9890162381365109" />
+      <entry key="M5" value="1.9955920245524619" />
+      <entry key="M10" value="1.9977935934067508" />
+      <entry key="M15" value="1.99852852421849" />
+      <entry key="M30" value="1.9992639929512543" />
+      <entry key="H1" value="1.999631929161433" />
+      <entry key="H2" value="1.9998159477490802" />
+      <entry key="H4" value="1.999907969666245" />
+      <entry key="D1" value="1.9999846610265226" />
+      <entry key="W1" value="1.9999978087037593" />
+    </decayedShown>
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.5" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3KbX1Ot47LMfZkLQFK7rjeQEiyJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -46,6 +105,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -69,6 +129,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/application/lessons/14_fastapi_routing_dependencies" />
       <recent name="$PROJECT_DIR$/application/lessons" />
       <recent name="$PROJECT_DIR$/application/lessons/13_pydantic_api_models" />
     </key>
@@ -88,11 +149,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1791827025893</updated>
-      <workItem from="1791827026898" duration="7200000" />
+      <workItem from="1791827026898" duration="10625000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
